@@ -26,6 +26,9 @@ ext {
 android {
     namespace 'nie.translator.rtranslator'
     compileSdkVersion 33  //33
+	
+	ndkVersion "27.3.13750724"
+	
     defaultConfig {
         applicationId "nie.translator.rtranslator"
         targetSdkVersion 32   //32
@@ -64,23 +67,38 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    buildFeatures {
+        buildConfig = true
+
+        viewBinding = true
+    }
+
     lintOptions {
         checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,
         // but continue the build even when errors are found:
         abortOnError false
     }
+
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.2'
         resolutionStrategy.force "com.android.support:support-annotations:$supportLibraryVersion"
     }
+
     productFlavors {
     }
+    
     externalNativeBuild {
         cmake {
             path file('src/main/cpp/CMakeLists.txt')
-            version '3.22.1'
+            version '3.31.5'
         }
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_17
     }
 }
 
